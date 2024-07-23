@@ -1,0 +1,79 @@
+{
+  "name": "generate-structure",
+  "displayName": "Generate Structure",
+  "description": "Generates a JSON structure of selected files and directories.",
+  "version": "0.0.1",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.generateStructure",
+        "title": "PSTRUC Generate Structure"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.generateStructure",
+          "when": "resourceLangId != ''",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Generate Structure Extension Configuration",
+      "properties": {
+        "generateStructure.ignorePatterns": {
+          "type": "array",
+          "default": [
+            "__pycache__",
+            "*.pyc",
+            "*.pyo",
+            "*.pyd",
+            ".env",
+            ".venv",
+            "env/",
+            "venv/",
+            "*.egg-info/",
+            "*.egg",
+            "build/",
+            "dist/",
+            "node_modules/",
+            "npm-debug.log*",
+            "yarn-debug.log*",
+            "yarn-error.log*",
+            "coverage/",
+            "lib/",
+            "*.js",
+            "*.js.map",
+            "*.d.ts",
+            ".DS_Store"
+          ],
+          "description": "List of patterns to ignore when generating the structure"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^14.14.6",
+    "@types/vscode": "^1.50.0",
+    "@vscode/test-electron": "^2.4.1",
+    "typescript": "^4.0.3",
+    "vscode-test": "^1.4.0"
+  }
+}
