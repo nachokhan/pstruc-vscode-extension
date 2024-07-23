@@ -1,6 +1,6 @@
 
 *.env
-*.vslx
+*.vsix
 yarn.lock
 
 # Ignore node_modules
