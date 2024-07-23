@@ -1,71 +1,46 @@
-# pstruc-ext README
+# Pstruc-Extension
 
-This is the README for your extension "pstruc-ext". After writing up a brief description, we recommend including the following sections.
+Welcome to **pstruc-ext**, the ultimate tool for generating a structured JSON representation of your project's file and directory hierarchy in Visual Studio Code. This extension simplifies the management of complex project structures by creating an easily navigable JSON file.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Generate JSON Structure**: Quickly generate a JSON file (`structure.json`) that represents the file and directory hierarchy of your project.
+- **Customizable Ignore Patterns**: Use your own ignore patterns to exclude specific files or directories from the JSON structure.
+- **Efficient Processing**: Automatically replaces directories with their contained files and sorts items for optimal readability.
+- **Easy Integration**: Seamlessly integrates with your existing workflow in Visual Studio Code.
 
-For example if there is an image subfolder under your extension project workspace:
+## How to Use
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. **Open Your Project**: Open the project you want to generate a structure for in Visual Studio Code.
+2. **Select Files/Folders**: Select the files and/or folders you want to include in the JSON structure.
+3. **Run the Command**: Open the command palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and run `Generate Structure`.
+4. **View the JSON File**: The `structure.json` file will be created in the root of your workspace, representing the selected structure.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code version 1.50.0 or higher.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `pstruc_extension.ignorePatterns`: Array of glob patterns to ignore specific files or directories.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Currently, large projects with many nested directories might take longer to process.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+- Initial release of `pstruc-ext`.
 
 ### 1.0.1
 
-Fixed issue #.
+- Fixed minor bugs.
+- Improved performance for large projects.
 
-### 1.1.0
+## Enjoy!
 
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+We hope you find `pstruc-ext` useful for managing your project structures. If you have any feedback or suggestions, please open an issue on our [GitHub repository](https://github.com/nachokhan/pstruc-vscode-extension).
