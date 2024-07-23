@@ -5,7 +5,7 @@
   "version": "1.0.1",
   "publisher": "nachokhan",
   "engines": {
-    "vscode": "^1.50.0"
+    "vscode": "^1.75.0"
   },
   "categories": [
     "Other"
@@ -26,17 +26,23 @@
         "title": "Pstruc: Generate JSON Structure"
       }
     ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.pstruc_extension",
+          "when": "resourceLangId != ''",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "type": "object",
       "title": "Pstruc Extension",
       "properties": {
         "pstruc_extension.ignorePatterns": {
           "type": "array",
-          "items": {
-            "type": "string"
-          },
           "default": [],
-          "description": "Array of glob patterns to ignore specific files or directories."
+          "description": "List of patterns to ignore when generating the structure."
         }
       }
     }
