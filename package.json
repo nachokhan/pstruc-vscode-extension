@@ -14,14 +14,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.generateStructure",
+        "command": "extension.pstruc_extension",
         "title": "PSTRUC Generate Structure"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "extension.generateStructure",
+          "command": "extension.pstruc_extension",
           "when": "resourceLangId != ''",
           "group": "navigation"
         }
@@ -31,7 +31,7 @@
       "type": "object",
       "title": "Generate Structure Extension Configuration",
       "properties": {
-        "generateStructure.ignorePatterns": {
+        "pstruc_extension.ignorePatterns": {
           "type": "array",
           "default": [
             "__pycache__",
@@ -55,7 +55,9 @@
             "*.js",
             "*.js.map",
             "*.d.ts",
-            ".DS_Store"
+            ".DS_Store",
+            ".git",
+            "*yarn*"
           ],
           "description": "List of patterns to ignore when generating the structure"
         }

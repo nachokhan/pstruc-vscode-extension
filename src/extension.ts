@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('extension.generateStructure', async (uri: vscode.Uri, uris: vscode.Uri[]) => {
+  let disposable = vscode.commands.registerCommand('extension.pstruc_extension', async (uri: vscode.Uri, uris: vscode.Uri[]) => {
     if (!uris || uris.length === 0) {
       vscode.window.showErrorMessage('No files or folders selected');
       return;
@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     // Get user-defined ignore patterns from settings
-	let ignorePatterns = vscode.workspace.getConfiguration('generateStructure').get<string[]>('ignorePatterns', []);
+	let ignorePatterns = vscode.workspace.getConfiguration('pstruc_extension').get<string[]>('ignorePatterns', []);
 
 	// Ensure ignorePatterns is an array
 	if (!Array.isArray(ignorePatterns)) {
