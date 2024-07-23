@@ -2,7 +2,7 @@
   "name": "pstruc-ext",
   "displayName": "Pstruc Extension",
   "description": "The ultimate tool for generating a structured JSON representation of your project's file and directory hierarchy and content.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "nachokhan",
   "engines": {
     "vscode": "^1.75.0"
@@ -43,6 +43,11 @@
           "type": "array",
           "default": [],
           "description": "List of patterns to ignore when generating the structure."
+        },
+        "pstruc_extension.hideBinaryContent": {
+          "type": "boolean",
+          "default": true,
+          "description": "Hide the content of binary files."
         }
       }
     }
@@ -50,6 +55,9 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./"
+  },
+  "dependencies": {
+    "isbinaryfile": "^5.0.2"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

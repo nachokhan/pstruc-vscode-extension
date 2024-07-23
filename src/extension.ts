@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { isBinaryFile } from 'isbinaryfile';
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('extension.pstruc_extension', async (uri: vscode.Uri, uris: vscode.Uri[]) => {
@@ -16,14 +17,15 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     // Get user-defined ignore patterns from settings
-	let ignorePatterns = vscode.workspace.getConfiguration('pstruc_extension').get<string[]>('ignorePatterns', []);
+    let ignorePatterns = vscode.workspace.getConfiguration('pstruc_extension').get<string[]>('ignorePatterns', []);
+    let hideBinaryContent = vscode.workspace.getConfiguration('pstruc_extension').get<boolean>('hideBinaryContent', true);
 
-	// Ensure ignorePatterns is an array
-	if (!Array.isArray(ignorePatterns)) {
-	ignorePatterns = [];
-	}
+    // Ensure ignorePatterns is an array
+    if (!Array.isArray(ignorePatterns)) {
+      ignorePatterns = [];
+    }
 
-	// Pre-process the selected items
+    // Pre-process the selected items
     let items = await preprocessItems(uris, workspaceFolder, ignorePatterns);
 
     // Process the items to generate the structure
@@ -31,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     for (const item of items) {
       const relativePath = path.relative(workspaceFolder, item.fsPath);
-      await processItem(item.fsPath, relativePath.split(path.sep), structure);
+      await processItem(item.fsPath, relativePath.split(path.sep), structure, hideBinaryContent);
     }
 
     console.log('Resulting JSON structure:', JSON.stringify(structure, null, 2));
@@ -93,30 +95,35 @@ function filterIgnoredItems(uris: vscode.Uri[], patterns: string[]): vscode.Uri[
   return uris.filter(uri => !regexPatterns.some(regex => regex.test(uri.fsPath)));
 }
 
-async function processItem(filePath: string, pathParts: string[], structure: any) {
+async function processItem(filePath: string, pathParts: string[], structure: any, hideBinaryContent: boolean) {
   const stats = fs.statSync(filePath);
   if (stats.isDirectory()) {
     const entries = fs.readdirSync(filePath);
     for (const entry of entries) {
       const entryPath = path.join(filePath, entry);
       const entryRelativePathParts = [...pathParts, entry];
-      await processItem(entryPath, entryRelativePathParts, structure);
+      await processItem(entryPath, entryRelativePathParts, structure, hideBinaryContent);
     }
   } else {
-    addFileToStructure(structure, filePath, pathParts);
+    await addFileToStructure(structure, filePath, pathParts, hideBinaryContent);
   }
 }
 
-function addFileToStructure(structure: any, filePath: string, pathParts: string[]) {
+async function addFileToStructure(structure: any, filePath: string, pathParts: string[], hideBinaryContent: boolean) {
   const name = pathParts.shift()!;
   if (pathParts.length === 0) {
-    const content = fs.readFileSync(filePath, 'utf-8');
+    let content;
+    if (hideBinaryContent && await isBinaryFile(filePath)) {
+      content = '(binary)';
+    } else {
+      content = fs.readFileSync(filePath, 'utf-8');
+    }
     structure[name] = content;
   } else {
     if (!structure[name]) {
       structure[name] = {};
     }
-    addFileToStructure(structure[name], filePath, pathParts);
+    await addFileToStructure(structure[name], filePath, pathParts, hideBinaryContent);
   }
 }
 
