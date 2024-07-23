@@ -14,7 +14,7 @@
   "activationEvents": [
     "onCommand:extension.pstruc_extension"
   ],
-  "main": "./src/extension.ts",
+  "main": "./out/extension.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nachokhan/pstruc-vscode-extension"
@@ -42,13 +42,15 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./"
   },
   "devDependencies": {
     "typescript": "^4.0.3",
     "vscode": "^1.1.37",
     "@types/node": "^14.14.6",
-    "@types/vscode": "^1.50.0"
+    "@types/mocha": "^9.1.1",
+    "@types/glob": "^7.2.0",
+    "@vscode/test-electron": "^2.4.1"
   }
 }
