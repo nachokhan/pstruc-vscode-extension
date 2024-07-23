@@ -1,81 +1,54 @@
 {
-  "name": "generate-structure",
-  "displayName": "Generate Structure",
-  "description": "Generates a JSON structure of selected files and directories.",
-  "version": "0.0.1",
-  "publisher": "your-publisher-name",
+  "name": "pstruc-ext",
+  "displayName": "Pstruc Extension",
+  "description": "The ultimate tool for generating a structured JSON representation of your project's file and directory hierarchy and content.",
+  "version": "1.0.1",
+  "publisher": "nachokhan",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.50.0"
   },
   "categories": [
     "Other"
   ],
-  "main": "./out/extension.js",
+  "icon": "icon.png",
+  "activationEvents": [
+    "onCommand:extension.pstruc_extension"
+  ],
+  "main": "./src/extension.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nachokhan/pstruc-vscode-extension"
+  },
   "contributes": {
     "commands": [
       {
         "command": "extension.pstruc_extension",
-        "title": "PSTRUC Generate Structure"
+        "title": "Pstruc: Generate JSON Structure"
       }
     ],
-    "menus": {
-      "explorer/context": [
-        {
-          "command": "extension.pstruc_extension",
-          "when": "resourceLangId != ''",
-          "group": "navigation"
-        }
-      ]
-    },
     "configuration": {
       "type": "object",
-      "title": "Generate Structure Extension Configuration",
+      "title": "Pstruc Extension",
       "properties": {
         "pstruc_extension.ignorePatterns": {
           "type": "array",
-          "default": [
-            "__pycache__",
-            "*.pyc",
-            "*.pyo",
-            "*.pyd",
-            ".env",
-            ".venv",
-            "env/",
-            "venv/",
-            "*.egg-info/",
-            "*.egg",
-            "build/",
-            "dist/",
-            "node_modules/",
-            "npm-debug.log*",
-            "yarn-debug.log*",
-            "yarn-error.log*",
-            "coverage/",
-            "lib/",
-            "*.js",
-            "*.js.map",
-            "*.d.ts",
-            ".DS_Store",
-            ".git",
-            "*yarn*"
-          ],
-          "description": "List of patterns to ignore when generating the structure"
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Array of glob patterns to ignore specific files or directories."
         }
       }
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.7",
-    "@types/node": "^14.14.6",
-    "@types/vscode": "^1.50.0",
-    "@vscode/test-electron": "^2.4.1",
     "typescript": "^4.0.3",
-    "vscode-test": "^1.4.0"
+    "vscode": "^1.1.37",
+    "@types/node": "^14.14.6",
+    "@types/vscode": "^1.50.0"
   }
 }
