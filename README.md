@@ -2,6 +2,8 @@
 
 Welcome to **pstruc-ext**, the ultimate tool for generating a structured JSON representation of your project's file and directory hierarchy in Visual Studio Code. This extension simplifies the management of complex project structures by creating an easily navigable JSON file.
 
+![VPReview](./images/pstruc_example.gif)
+
 ## Features
 
 - **Generate JSON Structure**: Quickly generate a JSON file (`structure.json`) that represents the file and directory hierarchy of your project.
@@ -25,6 +27,7 @@ Welcome to **pstruc-ext**, the ultimate tool for generating a structured JSON re
 This extension contributes the following settings:
 
 - `pstruc_extension.ignorePatterns`: Array of glob patterns to ignore specific files or directories.
+- `pstruc_extension.hideBinaryContent`: Boolean to hide binary file content by replacing it with "(binary)".
 
 ## Known Issues
 
@@ -39,7 +42,11 @@ This extension contributes the following settings:
 ### 1.0.1
 
 - Fixed minor bugs.
-- Improved performance for large projects.
+
+### 1.0.2
+
+- Added "Hide binary file's content" option to replace binary file content with "(binary)" in the generated JSON structure. The option is enabled by default.
+- Fixed minor bugs.
 
 ## Enjoy!
 
