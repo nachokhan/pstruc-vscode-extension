@@ -2,7 +2,7 @@
   "name": "pstruc-ext",
   "displayName": "Pstruc Extension",
   "description": "The ultimate tool for generating a structured JSON representation of your project's file and directory hierarchy and content.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "nachokhan",
   "engines": {
     "vscode": "^1.75.0"
