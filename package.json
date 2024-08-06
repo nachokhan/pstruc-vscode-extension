@@ -24,6 +24,14 @@
       {
         "command": "extension.pstruc_extension",
         "title": "Pstruc: Generate JSON Structure"
+      },
+      {
+        "command": "fileStructure.renameFile",
+        "title": "Rename Output File"
+      },
+      {
+        "command": "fileStructure.toggleHideBinaryContent",
+        "title": "Toggle Hide Binary Content"
       }
     ],
     "menus": {
@@ -32,6 +40,27 @@
           "command": "extension.pstruc_extension",
           "when": "resourceLangId != ''",
           "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pstruc-container",
+          "title": "Pstruc",
+          "icon": "resources/simple_bw.svg"
+        }
+      ]
+    },
+    "views": {
+      "pstruc-container": [
+        {
+          "id": "fileStructureView",
+          "name": "File Structure"
+        },
+        {
+          "id": "dbStructureView",
+          "name": "DB Structure"
         }
       ]
     },
