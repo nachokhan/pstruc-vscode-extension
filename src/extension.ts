@@ -49,17 +49,11 @@ export function activate(context: vscode.ExtensionContext) {
 async function preprocessItems(uris: vscode.Uri[], workspaceFolder: string, ignorePatterns: string[]): Promise<vscode.Uri[]> {
   let items: vscode.Uri[] = [];
 
-  // Step 1: Replace directories with their files
   for (const uri of uris) {
     await replaceDirectoryWithFiles(uri, items);
   }
-
-  // Step 2: Sort items by level, showing files first (alphabetically) and then directories (alphabetically)
   items = sortItems(items, workspaceFolder);
-
-  // Step 3: Filter out items that match ignore patterns
   items = filterIgnoredItems(items, ignorePatterns);
-
   return items;
 }
 
@@ -91,7 +85,7 @@ function sortItems(uris: vscode.Uri[], workspaceFolder: string): vscode.Uri[] {
 }
 
 function filterIgnoredItems(uris: vscode.Uri[], patterns: string[]): vscode.Uri[] {
-  const regexPatterns = patterns.map(pattern => new RegExp(pattern.replace('*', '.*')));
+  const regexPatterns = patterns.map(pattern => new RegExp(pattern.replace('.', '\\.').replace('*', '.*')));
   return uris.filter(uri => !regexPatterns.some(regex => regex.test(uri.fsPath)));
 }
 
