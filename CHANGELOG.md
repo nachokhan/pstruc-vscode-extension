@@ -4,6 +4,12 @@ All notable changes to the "pstruc-ext" extension will be documented in this fil
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.5] - 2024-08-25
+
+### Feature
+- Added support to generate the project structure in `pdf` and `yaml` formats in addition to `json`.
+- Code Refactoring
+
 ## [1.0.4] - 2024-08-06
 
 ### Fixed
