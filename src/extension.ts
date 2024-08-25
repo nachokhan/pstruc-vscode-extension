@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { isBinaryFile } from 'isbinaryfile';
+import * as PDFDocument from 'pdfkit';
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('extension.pstruc_extension', async (uri: vscode.Uri, uris: vscode.Uri[]) => {
@@ -16,19 +17,17 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    // Get user-defined ignore patterns from settings
+    // Get user-defined settings
     let ignorePatterns = vscode.workspace.getConfiguration('pstruc_extension').get<string[]>('ignorePatterns', []);
     let hideBinaryContent = vscode.workspace.getConfiguration('pstruc_extension').get<boolean>('hideBinaryContent', true);
+    let outputFormat = vscode.workspace.getConfiguration('pstruc_extension').get<string>('outputFormat', 'json');
 
-    // Ensure ignorePatterns is an array
     if (!Array.isArray(ignorePatterns)) {
       ignorePatterns = [];
     }
 
-    // Pre-process the selected items
     let items = await preprocessItems(uris, workspaceFolder, ignorePatterns);
 
-    // Process the items to generate the structure
     const structure: any = {};
 
     for (const item of items) {
@@ -36,11 +35,18 @@ export function activate(context: vscode.ExtensionContext) {
       await processItem(item.fsPath, relativePath.split(path.sep), structure, hideBinaryContent);
     }
 
-    console.log('Resulting JSON structure:', JSON.stringify(structure, null, 2));
-
-    const structureFilePath = path.join(workspaceFolder, 'structure.json');
-    fs.writeFileSync(structureFilePath, JSON.stringify(structure, null, 2));
-    vscode.window.showInformationMessage('Structure file created at: ' + structureFilePath);
+    if (outputFormat === 'json') {
+      const structureFilePath = path.join(workspaceFolder, 'structure.json');
+      fs.writeFileSync(structureFilePath, JSON.stringify(structure, null, 2));
+      vscode.window.showInformationMessage('Structure file created at: ' + structureFilePath);
+    } else if (outputFormat === 'pdf') {
+      const structureFilePath = path.join(workspaceFolder, 'structure.pdf');
+      const doc = new PDFDocument();
+      doc.pipe(fs.createWriteStream(structureFilePath));
+      doc.text(JSON.stringify(structure, null, 2));
+      doc.end();
+      vscode.window.showInformationMessage('Structure file created at: ' + structureFilePath);
+    }
   });
 
   context.subscriptions.push(disposable);

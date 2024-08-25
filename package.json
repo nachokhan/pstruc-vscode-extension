@@ -48,6 +48,15 @@
           "type": "boolean",
           "default": true,
           "description": "Hide the content of binary files."
+        },
+        "pstruc_extension.outputFormat": {
+          "type": "string",
+          "enum": [
+            "json",
+            "pdf"
+          ],
+          "default": "json",
+          "description": "Output format for the structure file (JSON or PDF)."
         }
       }
     }
@@ -57,12 +66,14 @@
     "compile": "tsc -p ./"
   },
   "dependencies": {
-    "isbinaryfile": "^5.0.2"
+    "isbinaryfile": "^5.0.2",
+    "pdfkit": "^0.15.0"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.7",
     "@types/node": "^14.14.6",
+    "@types/pdfkit": "^0.13.4",
     "@vscode/test-electron": "^2.4.1",
     "typescript": "^4.0.3",
     "vscode": "^1.1.37"
