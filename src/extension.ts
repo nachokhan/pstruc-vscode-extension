@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { isBinaryFile } from 'isbinaryfile';
 import * as PDFDocument from 'pdfkit';
+import * as YAML from 'js-yaml';
+
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('extension.pstruc_extension', async (uri: vscode.Uri, uris: vscode.Uri[]) => {
@@ -45,6 +47,10 @@ export function activate(context: vscode.ExtensionContext) {
       doc.pipe(fs.createWriteStream(structureFilePath));
       doc.text(JSON.stringify(structure, null, 2));
       doc.end();
+      vscode.window.showInformationMessage('Structure file created at: ' + structureFilePath);
+    } else if (outputFormat === 'yaml') {
+      const structureFilePath = path.join(workspaceFolder, 'structure.yaml');
+      fs.writeFileSync(structureFilePath, YAML.dump(structure));
       vscode.window.showInformationMessage('Structure file created at: ' + structureFilePath);
     }
   });
